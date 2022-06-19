@@ -18,6 +18,7 @@ class CommunicationInterface:
     # force variable type
     digital_in: ctypes.c_uint8
     digital_out: ctypes.c_uint8
+
     # Init class
     def __init__(self):
         self.stop_program = False
