@@ -22,7 +22,7 @@ class CommunicationInterface:
     def __init__(self):
         self.stop_program = False
         self.rec_thread = Thread(target=self.receive_data)
-        self.send_thread = Thread(target=self.receive_data)
+        self.send_thread = Thread(target=self.send_data)
         self.sim = RobotSimulation()    # Robot simulation class
         self.digital_in = 0     # Init digital input to 0
         self.digital_out = 0    # Init digital output to 0
@@ -37,12 +37,12 @@ class CommunicationInterface:
     def run(self):
         # run threads to receive and send udp packet
         self.rec_thread.start()
-        # self.send_thread.start()
+        self.send_thread.start()
 
     # Method to join both class threads
     def join(self):
         self.rec_thread.join()
-        # self.send_thread.join()
+        self.send_thread.join()
 
     # receive packet using udp socket
     def receive_data(self):
@@ -74,19 +74,20 @@ class CommunicationInterface:
     def send_data(self):
         # init receive udp socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        sock.bind((UDP_IP, UDP_SEND_PORT))
         # send packet every 20ms
         while not self.stop_program:
             # get actual set point position
             self.mutex.acquire()
             set_point = self.set_point_position
-            digital = self.digital_out
+            # digital = self.digital_out
+            digital = 1
             self.mutex.release()
             # simulate robot movement
             pos = self.sim.simulate_motors(set_point)
             # send packet using udp
-            packet = sock.send(struct.pack('fffB', pos, digital))
-            sock.send(packet)
+            send_data = struct.pack('fffB', pos[0], pos[1], pos[2], digital)
+            sock.sendto(send_data, (UDP_IP, UDP_SEND_PORT))
+
             sleep(0.02)  #wait 20ms to send next packet
 
         # close socket

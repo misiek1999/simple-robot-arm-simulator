@@ -13,10 +13,11 @@ if __name__ == '__main__':
 
     set = 10
     sim = RobotSimulation()
-    # for i in range(0, 50*20):
-    #     print(sim.simulate_motors([set, set, set])[0])
 
-    sleep(100)
+    # sleep(1000)
+    while True:
+        pass
+
     interface.stop_communication()
     # wait to join communication interface threads
     interface.join()
