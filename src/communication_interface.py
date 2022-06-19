@@ -2,7 +2,6 @@
 import ctypes
 import socket
 import struct
-from ctypes import *
 from threading import Thread, Lock
 from time import sleep
 from src.simulation import RobotSimulation
