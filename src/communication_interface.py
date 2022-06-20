@@ -63,7 +63,6 @@ class CommunicationInterface:
                 self.set_point_position[2] = rec_data[2]
                 self.digital_in = rec_data[3]
                 self.mutex.release()
-                print(rec_data)
             except:     # if receive is impossible do nothing
                 pass
 

@@ -4,6 +4,7 @@ import sys
 import numpy as np
 from math import *
 from src.communication_interface import CommunicationInterface
+from mpl_toolkits import mplot3d
 
 
 # class to render robot arm
