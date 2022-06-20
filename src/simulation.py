@@ -4,6 +4,7 @@
 from src.robot_spec import *
 from threading import Lock
 
+
 # Class to simulate robot arm move
 class RobotSimulation:
     # class init
@@ -35,7 +36,9 @@ class RobotSimulation:
     # get scaled simulation output
     def get_output(self):
         self.mutex.acquire()
-        out = [x * 0.3656 for x in self.x]
+        out = []
+        for x in self.x:
+            out.append(x * 0.3656)
         self.mutex.release()
         return out  # return scaled motor position [deg]
 

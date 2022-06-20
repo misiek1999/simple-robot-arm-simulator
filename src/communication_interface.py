@@ -95,4 +95,5 @@ class CommunicationInterface:
 
     # get current robot position
     def get_position(self):
-        return self.sim.get_output()
+        out = self.sim.get_output()
+        return out
