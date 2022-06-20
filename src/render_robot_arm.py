@@ -63,10 +63,11 @@ class SimpleRobotRender:
                                                                                              joint_cart_pos[3][1],
                                                                                              joint_cart_pos[3][2])
             ax.set_title(position_str)
-            # display robot arm
-            plt.show(block=False)
-            # wait 20ms to next iteration
-            plt.pause(0.02)
+            if not self.close_program:
+                # display robot arm
+                plt.show(block=False)
+                # wait 20ms to next iteration
+                plt.pause(0.02)
 
         # close other threads
         self.interface.stop_communication()
@@ -115,8 +116,10 @@ class SimpleRobotRender:
 
     # windows close event handler
     def windows_close(self, event):
+        self.close_program = True
         self.interface.stop_communication()
-        sys.exit(0)
+        self.interface.join()
+        exit(0)
 
     # key press event handler
     def key_press(self, event):
