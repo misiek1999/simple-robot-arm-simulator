@@ -11,5 +11,4 @@ ARM_3_LEN = 12.0
 MAX_MOTOR_SPEED = 2.83
 
 # robot arm limit [deg]
-ARM_POSITION_MIN = -90
-ARM_POSITION_MAX = 90
+ARM_POSITION_LIMIT = [[-90, 90], [-90, 90], [-180, 180]]

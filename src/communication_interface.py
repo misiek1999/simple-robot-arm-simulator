@@ -59,15 +59,16 @@ class CommunicationInterface:
             try:
                 raw_data, addr = sock.recvfrom(1024)    # oversize receive buffer
                 rec_data = struct.unpack('fffB', raw_data)
-                for i in range(0, 3):
-                    if math.isnan(rec_data[i]) or math.isinf(rec_data[i]):
-                        raise NameError("Communication error")
+                # for i in range(0, 3):
+                #     if math.isnan(rec_data[i]) or math.isinf(rec_data[i]):
+                #         raise NameError("Communication error")
                 self.mutex.acquire()
                 self.set_point_position[0] = rec_data[0]
                 self.set_point_position[1] = rec_data[1]
                 self.set_point_position[2] = rec_data[2]
                 self.digital_in = rec_data[3]
                 self.mutex.release()
+                print(rec_data)
             except:     # if receive is impossible do nothing
                 pass
 
