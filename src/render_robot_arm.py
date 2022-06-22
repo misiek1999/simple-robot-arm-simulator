@@ -41,7 +41,7 @@ class SimpleRobotRender:
             # set axis limit
             ax.set_xlim3d(-20, 20)
             ax.set_ylim3d(-20, 20)
-            ax.set_zlim3d(-10, 40)
+            ax.set_zlim3d(0, 40)
             # read current joint position
             joint_pos = self.interface.get_position()
             joint_cart_pos = self.calculate_cartesian_robot_position(joint_pos)
