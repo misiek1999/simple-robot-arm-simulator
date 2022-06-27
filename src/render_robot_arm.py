@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import matplotlib
 import sys
+import os
 import numpy as np
 from math import *
 from src.communication_interface import CommunicationInterface
@@ -119,7 +120,7 @@ class SimpleRobotRender:
         self.close_program = True
         self.interface.stop_communication()
         self.interface.join()
-        exit(0)
+        os._exit(0)
 
     # key press event handler
     def key_press(self, event):
