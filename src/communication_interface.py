@@ -29,6 +29,7 @@ class CommunicationInterface:
         self.digital_in = 0     # Init digital input to 0
         self.digital_out = 0    # Init digital output to 0
         self.set_point_position = [0, 0, 0]
+        self.prev_bin = 0
         self.mutex = Lock()
 
     # Method to stop udp communication
@@ -68,6 +69,10 @@ class CommunicationInterface:
                 self.set_point_position[2] = rec_data[2]
                 self.digital_in = rec_data[3]
                 self.mutex.release()
+                if self.prev_bin != self.digital_in:
+                    binary_str = "{0:b}".format(37)
+                    print('Receive binary: ', binary_str)
+                self.prev_bin = self.digital_in
             except:     # if receive is impossible do nothing
                 pass
 
